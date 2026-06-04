@@ -11,12 +11,26 @@ const sessionRoutes = require('./routes/sessions');
 
 const app = express();
 
+const additionalAllowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+  : [];
+
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://localhost:3001',
   'http://127.0.0.1:3001',
+  ...additionalAllowedOrigins,
 ];
+
+const isAllowedOrigin = origin => {
+  if (!origin) return true;
+  return (
+    allowedOrigins.includes(origin) ||
+    origin.endsWith('.vercel.app') ||
+    origin.endsWith('.onrender.com')
+  );
+};
 
 app.use(helmet());
 app.disable('x-powered-by');
@@ -45,7 +59,7 @@ const apiLimiter = rateLimit({
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (isAllowedOrigin(origin)) {
       callback(null, true);
     } else {
       callback(new Error(`CORS origin not allowed: ${origin}`));
