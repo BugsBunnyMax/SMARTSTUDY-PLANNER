@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import authService from '../services/authService';
 
 const AuthContext = createContext(null);
@@ -63,6 +64,10 @@ const AuthProvider = ({ children }) => {
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { AuthContext, AuthProvider };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const TaskForm = ({ onSubmit, initialValues = {} }) => {
   const [form, setForm] = useState({
@@ -173,6 +174,25 @@ const TaskForm = ({ onSubmit, initialValues = {} }) => {
       </button>
     </form>
   );
+};
+
+TaskForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    course: PropTypes.string,
+    priority: PropTypes.string,
+    difficulty: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    estimatedDuration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    dueDate: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    notes: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string,
+      }),
+    ),
+  }),
 };
 
 export default TaskForm;
