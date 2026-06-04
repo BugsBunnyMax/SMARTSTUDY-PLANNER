@@ -1,0 +1,187 @@
+/* App styles */
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-soft: #f1f5f9;
+  --surface-strong: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --accent: #2563eb;
+  --accent-contrast: #ffffff;
+  --danger: #ef4444;
+  --success: #10b981;
+  --accent-soft: #dbeafe;
+}
+
+html.dark {
+  --bg: #090b11;
+  --surface: #111827;
+  --surface-soft: #161b22;
+  --surface-strong: #1f2937;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --border: #293241;
+  --shadow: 0 20px 45px rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 10px 30px rgba(255, 255, 255, 0.06);
+  --accent: #60a5fa;
+  --accent-soft: #0f172a;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 240ms ease, color 240ms ease;
+}
+
+body,
+#root {
+  min-height: 100vh;
+}
+
+html.dark .bg-white,
+html.dark .bg-slate-50,
+html.dark .bg-slate-100,
+html.dark .bg-slate-200,
+html.dark .bg-slate-300,
+html.dark .bg-slate-400,
+html.dark .bg-slate-500,
+html.dark .bg-slate-600,
+html.dark .bg-slate-700,
+html.dark .bg-slate-800,
+html.dark .bg-slate-900,
+html.dark .bg-slate-950,
+html.dark .bg-gray-50,
+html.dark .bg-gray-100,
+html.dark .bg-gray-200,
+html.dark .bg-gray-300,
+html.dark .bg-gray-400,
+html.dark .bg-black,
+html.dark .bg-slate-950 {
+  background-color: var(--surface) !important;
+}
+
+html.dark .text-slate-900,
+html.dark .text-slate-800,
+html.dark .text-slate-700,
+html.dark .text-slate-600,
+html.dark .text-slate-500,
+html.dark .text-slate-400,
+html.dark .text-slate-300,
+html.dark .text-slate-200,
+html.dark .text-white,
+html.dark .text-gray-900,
+html.dark .text-gray-800,
+html.dark .text-gray-700,
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-gray-400,
+html.dark .text-gray-300 {
+  color: var(--text) !important;
+}
+
+html.dark .border-slate-200,
+html.dark .border-slate-300,
+html.dark .border-slate-400,
+html.dark .border-gray-200,
+html.dark .border-gray-300,
+html.dark .border-gray-400,
+html.dark .border-white {
+  border-color: var(--border) !important;
+}
+
+html.dark .shadow-sm,
+html.dark .shadow-xl,
+html.dark .shadow-2xl {
+  box-shadow: var(--card-shadow) !important;
+}
+
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 480ms ease forwards;
+}
+
+.progress-animate {
+  transition: width 1100ms cubic-bezier(.2,.9,.2,1);
+}
+
+@keyframes welcomeIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-welcome {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: welcomeIn 520ms ease forwards;
+}
+
+.logo-mark {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 220ms ease;
+}
+.logo-mark:hover { transform: translateY(-2px) scale(1.02); }
+
+/* Button utilities */
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+}
+.btn-accent:hover {
+  filter: brightness(0.96);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-outline:hover {
+  background: var(--surface-soft);
+}
+.btn-danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Card surface helper */
+.card-surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.card-surface-soft {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+

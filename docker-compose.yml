@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: smartstudy-mongodb
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - smartstudy-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: smartstudy-backend:latest
+    container_name: smartstudy-backend
+    ports:
+      - '5000:5000'
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://root:password@mongodb:27017/smartstudy?authSource=admin
+      JWT_SECRET: ${JWT_SECRET:-your_secret_key}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    networks:
+      - smartstudy-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: smartstudy-frontend:latest
+    container_name: smartstudy-frontend
+    ports:
+      - '3000:3000'
+    environment:
+      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:5000}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - smartstudy-network
+
+volumes:
+  mongodb-data:
+
+networks:
+  smartstudy-network:
+    driver: bridge
